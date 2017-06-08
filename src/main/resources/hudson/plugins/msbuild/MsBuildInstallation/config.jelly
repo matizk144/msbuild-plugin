@@ -33,4 +33,7 @@ THE SOFTWARE.
     <f:entry title="${%Default parameters}" field="defaultArgs">
         <f:textbox/>
     </f:entry>
+    <f:entry title="${%Path to NuGet}" field="nugetHome">
+        <f:textbox/>
+    </f:entry>    
 </j:jelly>

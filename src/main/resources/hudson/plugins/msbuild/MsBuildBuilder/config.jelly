@@ -34,6 +34,10 @@ THE SOFTWARE.
     <f:entry title="${%MSBuild Build File}" field="msBuildFile">
         <f:textbox name="msBuildBuilder.msBuildFile" value="${instance.msBuildFile}"/>
     </f:entry>
+    <f:entry title="${%Restore NuGet packages}" field="restoreNugetPackages">
+        <f:checkbox name="msBuildBuilder.restoreNugetPackages" value="${instance.restoreNugetPackages}"
+                    checked="${instance.restoreNugetPackages}" default="true"/>
+    </f:entry>    
     <f:entry title="${%Command Line Arguments}" field="cmdLineArgs">
         <f:textarea name="msBuildBuilder.cmdLineArgs" value="${instance.cmdLineArgs}"/>
     </f:entry>

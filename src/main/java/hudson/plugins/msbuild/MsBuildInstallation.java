@@ -44,33 +44,39 @@ import java.io.IOException;
 public final class MsBuildInstallation extends ToolInstallation implements NodeSpecific<MsBuildInstallation>, EnvironmentSpecific<MsBuildInstallation> {
 
     private final String defaultArgs;
+    private final String nugetHome;
 
     @DataBoundConstructor
-    public MsBuildInstallation(String name, String home, String defaultArgs) {
+    public MsBuildInstallation(String name, String home, String defaultArgs, String nugetHome) {
         super(name, home, null);
         this.defaultArgs = Util.fixEmpty(defaultArgs);
+        this.nugetHome = nugetHome;
     }
 
     @Override
     public MsBuildInstallation forNode(Node node, TaskListener log) throws IOException, InterruptedException {
-        return new MsBuildInstallation(getName(), translateFor(node, log), getDefaultArgs());
+        return new MsBuildInstallation(getName(), translateFor(node, log), getDefaultArgs(), getNugetHome());
     }
 
     @Override
     public MsBuildInstallation forEnvironment(EnvVars environment) {
-        return new MsBuildInstallation(getName(), environment.expand(getHome()), getDefaultArgs());
+        return new MsBuildInstallation(getName(), environment.expand(getHome()), getDefaultArgs(), environment.expand(getNugetHome()));
     }
 
     public String getDefaultArgs() {
         return this.defaultArgs;
     }
+    
+    public String getNugetHome() {
+        return this.nugetHome;
+    }    
 
-    @Extension @Symbol("msbuild")
+    @Extension @Symbol("msbuildnuget")
     public static class DescriptorImpl extends ToolDescriptor<MsBuildInstallation> {
 
         @Override
         public String getDisplayName() {
-            return "MSBuild";
+            return "MSBuild with NuGet";
         }
 
         @Override
